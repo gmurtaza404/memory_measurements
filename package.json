@@ -1,0 +1,17 @@
+{
+  "name": "get_memory_trace",
+  "version": "1.0.0",
+  "description": "Gets a memory trace of a website",
+  "main": "get_memory_trace.js",
+  "scripts": {
+    "test": "node get_memory_trace.js"
+  },
+  "author": "Ghulam Murtaza",
+  "license": "ISC",
+  "dependencies": {
+    "bigrig": "^1.3.0",
+    "chrome-remote-interface": "^0.23.3",
+    "chrome-trace": "^0.2.2",
+    "tracium": "^0.2.1"
+  }
+}
