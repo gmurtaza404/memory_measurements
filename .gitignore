@@ -1,3 +1,4 @@
 ./trace_jsons
 ./traces
 *.csv
+./src/*.pyc

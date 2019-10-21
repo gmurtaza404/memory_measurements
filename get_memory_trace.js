@@ -6,6 +6,7 @@ let rawEvents = [];
 
 website_to_load = process.argv[3]
 website_name = process.argv[2]
+device_name = process.argv[4]
 
 Chrome(async function (chrome) {
     with (chrome) {
@@ -13,6 +14,7 @@ Chrome(async function (chrome) {
 		
 		await Network.clearBrowserCache();
         await Network.clearBrowserCookies();
+        
         console.log('Cleared cache and cookies!')
 		
 		Tracing.start({
@@ -23,12 +25,13 @@ Chrome(async function (chrome) {
 
         Page.navigate({'url': website_to_load})
         Page.loadEventFired(async function () {
-			guid = await Tracing.requestMemoryDump()
+            await new Promise(done => setTimeout(done, 10000));
+			guid = await Tracing.requestMemoryDump(deterministic=true)
 			Tracing.end()
         });
 
         Tracing.tracingComplete(function () {
-            let file = './traces/'+ website_name + '-' + Date.now() + '.devtools.trace';
+            let file = './traces/'+ website_name + "@" + device_name +'-' + Date.now() + '.devtools.trace';
             fs.writeFileSync(file, JSON.stringify(rawEvents, null, 2));
             console.log('Trace file stored at: ' + file);
             console.log("Done!")
